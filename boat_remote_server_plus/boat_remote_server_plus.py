@@ -92,10 +92,10 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         if (path == "toggle_lights"):
             logger.debug("Toggling Lights!")
             controller.toggle_lights()
-        if (path == "set_anchor_watch"):
+        elif (path == "set_anchor_watch"):
             logger.debug("Setting Anchor Watch!")
             set_anchor_watch()
-        if (path == "reset_anchor_watch"):
+        elif (path == "reset_anchor_watch"):
             logger.debug("Resetting Anchor Watch!")
             reset_anchor_watch()
             
