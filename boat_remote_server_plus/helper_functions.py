@@ -20,6 +20,7 @@ class WatchField(object):
 
     def getValue(self):
         if ((datetime.now()-self.lastUpdated).seconds > self.timeout):
+            print "timeout " + self.name
             return ERROR_STRING
         elif (self.formatFunction is not None):
             return self.formatFunction(self.values)
@@ -27,6 +28,7 @@ class WatchField(object):
             return ' '.join(self.values)
             
     def setValues(self, values):
+        print "updating " + self.name
         self.values = values;
         self.lastUpdated = datetime.now();
 
