@@ -28,7 +28,6 @@ class WatchField(object):
             return ' '.join(self.values)
             
     def setValues(self, values):
-        print "updating " + self.name
         self.values = values;
         self.lastUpdated = datetime.now();
 
