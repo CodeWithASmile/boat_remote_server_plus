@@ -92,16 +92,34 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             controller.toggle_lights()
         if (path == "set_anchor_watch"):
             logger.debug("Setting Anchor Watch")
-            length = int(self.headers['Content-Length'])
-            post_data = urlparse.parse_qs(self.rfile.read(length).decode('utf-8'))
-            logger.debug("Parameters received: %s" % post_data)
-            if ((post_data.has_key("lat")) and (post_data.has_key("lon"))):
-                set_anchor_watch_loc(post_data["lat"][0],post_data["lon"][0])
+            params = getParams(["lat","lon"])
+            if len(params) == 2:
+                set_anchor_watch_loc(params["lat"],params["lon"])
             else:
                 set_anchor_watch()
         if (path == "reset_anchor_watch"):
             logger.debug("Resetting Anchor Watch")
             reset_anchor_watch()
+        if (path == "water_maker_on"):
+            logger.debug("Turning Watermaker On")
+            params = getParams(["mins"])
+            if len(params) == 1:
+                turn_watermaker_on(params["mins"])
+            else:
+                logger.error("No time for turning watermaker on")
+        if (path == "watermaker_off"):
+            logger.debug("Turning Watermaker Off")
+            turn_water_maker_off()
+
+    def getParams(self, params):
+            parsed_params = {}
+            length = int(self.headers['Content-Length'])
+            post_data = urlparse.parse_qs(self.rfile.read(length).decode('utf-8'))
+            logger.debug("Parameters received: %s" % post_data)
+            for p in params:
+                if (post_data.has_key(p)):
+                    parsed_params[p] = post_data[p][0]
+            return parsed_params
             
         
 
@@ -124,6 +142,7 @@ if __name__ == '__main__':
         httpd.serve_forever()
     except KeyboardInterrupt:
         logger.info("Interrupted By Keyboard")
+    reset_control()
     nmeaDataSource.close()
     nmeaDataSource.join()
     httpd.server_close()
