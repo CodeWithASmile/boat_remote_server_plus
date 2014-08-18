@@ -22,7 +22,7 @@ import pynmea2
 from helper_functions import *
 from nmea_data_source import NmeaDataSource
 from config import *
-import control
+from control import Controller
 
 def setup_logging(default_path='logging.json', default_level=logging.INFO,
     env_key='LOG_CFG'):
