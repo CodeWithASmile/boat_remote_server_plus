@@ -27,7 +27,7 @@ class Controller(object):
 
     def reset_control(self):
         self.logger.info("Resetting Control")
-        cancel_watermaker_timer()
+        self.cancel_watermaker_timer()
         for i in range(1,8):
             self.devd.Rly(i,0,0)
 
