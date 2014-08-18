@@ -140,6 +140,8 @@ if __name__ == '__main__':
         logger.info("Interrupted By Keyboard")
     try:
         controller.reset_control()
+    except:
+        pass
     nmeaDataSource.close()
     nmeaDataSource.join()
     httpd.server_close()
