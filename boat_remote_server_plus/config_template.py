@@ -48,6 +48,4 @@ watchFields = [NmeaWatchField(name="lat", sentence="RMC", fields=["latitude"],
                NmeaWatchField(name="wind_speed", sentence="MWV", fields=["wind_speed", "wind_speed_units"],
                               formatFunction=formatWindSpeed),
                AnchorWatchField(name="drift", sentence="RMC", fields=["latitude", "longitude"]),
-               ControlWatchField(name="watermaker_status", function=control.Controller.get_watermaker_status, 
-                                 formatFunction=formatWatermakerStatus)]
-control=True
+               WatchField(name="watermaker_status", formatFunction=formatWatermakerStatus)]

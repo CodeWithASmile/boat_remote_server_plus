@@ -160,21 +160,6 @@ class AnchorWatchField(NmeaWatchField):
         result = "%d m" % math.floor(arc *6373000) #returns result in meters.
         return result
 
-class ControlWatchField(WatchField):
-    """Represents status of a control field"""
-
-    def __init__(self, name, function, formatFunction=None, value=ERROR_STRING,
-                 timeout=5):
-        self.function = function
-        super(ControlWatchField, self).__init__(name, value=value, 
-                                               formatFunction=formatFunction, timeout=5)
-
-    def getValue(self):
-        self.values[0] = self.function()
-        super(ControlWatchField, self).getValue()
-
-
-
 # Formatting functions for watch fields
 
 def deg_to_dms(deg):

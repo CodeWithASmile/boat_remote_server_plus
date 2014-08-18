@@ -22,6 +22,7 @@ import pynmea2
 from helper_functions import *
 from nmea_data_source import NmeaDataSource
 from config import *
+import control
 
 def setup_logging(default_path='logging.json', default_level=logging.INFO,
     env_key='LOG_CFG'):
@@ -124,11 +125,9 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 if __name__ == '__main__':
     setup_logging()
     logger = logging.getLogger(__name__)
-    if control:
-        from control import Controller
-        controller = Controller()
+    controller = Controller()
     # initialize tcp port
-    nmeaDataSource = NmeaDataSource(NMEA_HOST, NMEA_PORT, watchFields)
+    nmeaDataSource = NmeaDataSource(NMEA_HOST, NMEA_PORT, controller, watchFields)
     if not test:
         nmeaDataSource.connect()
         nmeaDataSource.start()
@@ -140,10 +139,7 @@ if __name__ == '__main__':
         httpd.serve_forever()
     except KeyboardInterrupt:
         logger.info("Interrupted By Keyboard")
-    try:
-        controller.reset_control()
-    except:
-        pass
+    controller.reset_control()
     nmeaDataSource.close()
     nmeaDataSource.join()
     httpd.server_close()

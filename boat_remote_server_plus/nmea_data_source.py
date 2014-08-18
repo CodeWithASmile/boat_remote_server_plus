@@ -5,19 +5,22 @@ import threading
 import pynmea2
 import json
 import logging
+import time
 from socket import *
  
 class NmeaDataSource(threading.Thread):
     lock = threading.Lock()
 
-    def __init__(self, host, port, watchFields):
+    def __init__(self, host, port, controller, watchFields):
         self.logger = logging.getLogger(__name__)
+        self.controller = controller
         self.host = host
         self.port = port
         self.watchFields = watchFields
         self.connected = False
         self.sentence = ""
         self.sentences = {}
+        self.lastControl = time.time()
         super(NmeaDataSource, self).__init__()
 
     def connect(self):
@@ -37,6 +40,13 @@ class NmeaDataSource(threading.Thread):
 
     def run(self):
         while (self.connected):
+            if (time.time() - self.lastControl > 1):
+                self.logger.debug("Getting watermaker status")
+                watermaker_status = self.controller.get_watermaker_status()
+                for watchField in self.watchFields:
+                    if (watchField.getName() == "watermaker_status"):
+                        watchField.setValues = [watermaker_status]
+                self.lastControl = time.time()
             c = self.socket.recv(1)
             if (c=='$' or c=='!'): # beginning
                 self.sentence = c
