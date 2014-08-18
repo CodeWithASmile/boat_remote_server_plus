@@ -22,12 +22,12 @@ class Controller(object):
         self.devd.Read()
 
         self.logger.info("Relays initialised")
+        self.watermaker_timer = None
         self.reset_control()
 
     def reset_control(self):
         self.logger.info("Resetting Control")
-        if self.watermaker_timer:
-            self.watermaker_timer.cancel()
+        cancel_watermaker_timer()
         for i in range(1,8):
             self.devd.Rly(i,0,0)
 
@@ -82,7 +82,7 @@ class Controller(object):
         self.watermaker_timer.start()
 
     def cancel_watermaker_timer(self):
-        if (self.watermaker_timer):
+        if (self.watermaker_timer is not None):
             self.watermaker_timer.cancel()
         self.watermaker_timer = None
 
