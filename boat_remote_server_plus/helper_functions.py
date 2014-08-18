@@ -163,7 +163,7 @@ class AnchorWatchField(NmeaWatchField):
 class ControlWatchField(WatchField):
     """Represents status of a control field"""
 
-    def __init__(self, name, function, formatFunction=formatFunction, value=ERROR_STRING,
+    def __init__(self, name, function, formatFunction=None, value=ERROR_STRING,
                  timeout=5):
         self.function = function
         super(ControlWatchField, self).__init__(name, value=value, 
