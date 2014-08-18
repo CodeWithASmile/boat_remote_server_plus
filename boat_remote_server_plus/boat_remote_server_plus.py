@@ -24,12 +24,13 @@ from nmea_data_source import NmeaDataSource
 from config import *
 from control import Controller
 
-def setup_logging(default_path='logging.json', default_level=logging.INFO,
+def setup_logging(default_path='logging.json', default_level=logging.DEBUG,
     env_key='LOG_CFG'):
     path = basePath + "/" + default_path
     value = os.getenv(env_key, None)
     if value:
         path = value
+    print "looking for " + path
     if os.path.exists(path):
         print "found " + path
         with open(path, 'rt') as f:
