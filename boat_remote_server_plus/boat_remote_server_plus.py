@@ -31,6 +31,7 @@ def setup_logging(default_path='logging.json', default_level=logging.INFO,
     if value:
         path = value
     if os.path.exists(path):
+        print "found " + path
         with open(path, 'rt') as f:
             loggingConfig = json.load(f)
         logging.config.dictConfig(loggingConfig)
