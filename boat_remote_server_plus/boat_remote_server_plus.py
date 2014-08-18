@@ -72,7 +72,9 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                 data = nmeaDataSource.printWatchData()
         elif (path=="NMEA"):
             logger.debug("Printing all sentences")
-            data = nmeaDataSource.printAllSentences()     
+            data = nmeaDataSource.printAllSentences() 
+        else:
+            data = ""    
         self.wfile.write(data)
 
     def do_POST(self):
