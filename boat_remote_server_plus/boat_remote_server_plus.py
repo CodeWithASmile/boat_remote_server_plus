@@ -70,10 +70,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                 # Get the latest data from the nmeaDataSource
                 logger.debug("Printing watch data")
                 data = nmeaDataSource.printWatchData()
-        elif (path in approved_files):
-            f=open(fname.lstrip('/'),'r')
-            data = f.read()
-            f.close()
         elif (path=="NMEA"):
             logger.debug("Printing all sentences")
             data = nmeaDataSource.printAllSentences()     
@@ -142,7 +138,8 @@ if __name__ == '__main__':
         httpd.serve_forever()
     except KeyboardInterrupt:
         logger.info("Interrupted By Keyboard")
-    reset_control()
+    try:
+        controller.reset_control()
     nmeaDataSource.close()
     nmeaDataSource.join()
     httpd.server_close()
