@@ -174,6 +174,7 @@ class ControlWatchField(WatchField):
         super(ControlWatchField, self).getValue()
 
 
+
 # Formatting functions for watch fields
 
 def deg_to_dms(deg):
