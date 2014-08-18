@@ -11,7 +11,7 @@ HTTP_PORT = 8082 # The port that the HTTP data will be output on
 NMEA_HOST = '192.168.5.200'     # The host with the NMEA TCP feed
 NMEA_PORT = 10110              # The port with the NMEA TCP feed
 
-basePath = "/home/pi/boat_remote_server/boat_remote_server";
+basePath = "/home/pi/boat_remote_server_plus/boat_remote_server_plus"
 
 watchFields = [NmeaWatchField(name="lat", sentence="RMC", fields=["latitude"],
                               formatFunction=formatLatitude),
