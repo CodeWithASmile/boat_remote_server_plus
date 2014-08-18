@@ -40,6 +40,7 @@ class NmeaDataSource(threading.Thread):
 
     def run(self):
         while (self.connected):
+            self.logger.debug("Loop")
             if (time.time() - self.lastControl > 1):
                 self.logger.debug("Getting watermaker status")
                 watermaker_status = self.controller.get_watermaker_status()
