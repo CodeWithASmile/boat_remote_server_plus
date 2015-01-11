@@ -91,6 +91,9 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         if (path == "toggle_lights"):
             logger.debug("Toggling Lights!")
             controller.toggle_lights()
+        if (path == "toggle_heater"):
+            logger.debug("Toggling Heater!")
+            controller.toggle_heater()
         if (path == "set_anchor_watch"):
             logger.debug("Setting Anchor Watch")
             params = getParams(["lat","lon"])
@@ -101,16 +104,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         if (path == "reset_anchor_watch"):
             logger.debug("Resetting Anchor Watch")
             reset_anchor_watch()
-        if (path == "water_maker_on"):
-            logger.debug("Turning Watermaker On")
-            params = getParams(["mins"])
-            if len(params) == 1:
-                turn_watermaker_on(params["mins"])
-            else:
-                logger.error("No time for turning watermaker on")
-        if (path == "watermaker_off"):
-            logger.debug("Turning Watermaker Off")
-            turn_water_maker_off()
 
     def getParams(self, params):
             parsed_params = {}
